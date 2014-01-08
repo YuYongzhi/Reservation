@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_expandablelistview_parent_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/item_white_background">
+
+    <ImageView
+        android:id="@+id/left_content_expandablelistview_parent_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"/>
+
+    <TextView
+        android:id="@+id/left_content_expandablelistview_parent_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/left_content_item_textsize" />
+
+</LinearLayout>

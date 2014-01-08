@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">在线订餐</string>
+    
+    <string name="app_all_rights">Copyright © 2013-2014 在线订餐 \n All Rights Reserved.</string>
+    
+    <string name="left_content_title_menu">菜    单</string>
+    <string name="left_content_global_search">全局搜索</string>
+
+</resources>
