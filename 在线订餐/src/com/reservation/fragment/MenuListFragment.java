@@ -12,15 +12,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-public class TabAFragment extends Fragment{
+public class MenuListFragment extends Fragment{
 	
 	private static final String TAG = "Fragment";
 
 	private Context mContext;
 	private SlidingMenu menu;
+	private RelativeLayout mTitleLayout;
+	private EditText mSearchEditText;
 	
-	public TabAFragment(SlidingMenu menu) {
+	private Animation mShowAnimation;
+	private Animation mHiddenAnimation;
+	
+	
+	public MenuListFragment(SlidingMenu menu) {
 		this.menu = menu;
 	}
 	
@@ -28,14 +39,46 @@ public class TabAFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.i(TAG, "FragmentA-- onCreateView");
-		return inflater.inflate(R.layout.tab_a_fragment_layout, container, false);
+		return inflater.inflate(R.layout.menu_list_fragment_layout, container, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		Log.i(TAG, "FragmentA-- onActivityCreated");
+		mContext = getActivity();
+		initViews();
 	
+	}
+	
+	private void initViews() {
+		View parent = getView();
+		mTitleLayout = (RelativeLayout) parent.findViewById(R.id.menu_list_title_layout);
+		mSearchEditText = (EditText) parent.findViewById(R.id.menu_list_search_edt);
+
+		mShowAnimation = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF, 0.0f, 
+				Animation.RELATIVE_TO_SELF, 0.0f, 
+				Animation.RELATIVE_TO_SELF, -1.0f, 
+				Animation.RELATIVE_TO_SELF, 0.0f);
+		mShowAnimation.setDuration(500);
+		mHiddenAnimation = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF, 0.0f, 
+				Animation.RELATIVE_TO_SELF, 0.0f, 
+				Animation.RELATIVE_TO_SELF, 0.0f, 
+				Animation.RELATIVE_TO_SELF, -1.0f);
+		mHiddenAnimation.setDuration(3000);
+		
+		mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				//mTitleLayout.startAnimation(mHiddenAnimation);
+				//mTitleLayout.setVisibility(View.GONE);
+				mSearchEditText.startAnimation(mHiddenAnimation);
+			}
+		});
 	}
 
 	@Override

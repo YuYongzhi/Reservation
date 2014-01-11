@@ -29,7 +29,8 @@
             android:name="com.reservation.act.GuideActivity"></activity>
         
         <activity 
-            android:name="com.reservation.act.MainFragmentActivity"></activity>
+            android:name="com.reservation.act.MainFragmentActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="7dip"
-            android:paddingTop="7dip" >
+            android:paddingBottom="2dip"
+            android:paddingTop="2dip" >
 
             <RadioButton
                 android:id="@+id/tab_rbtn_1"
@@ -33,7 +33,7 @@
                 android:background="@drawable/selector_tab"
                 android:button="@null"
                 android:checked="true"
-                android:drawableTop="@drawable/tablatestalert"
+                android:drawableTop="@drawable/menu_list_button_bg_selector"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="Tab1"
@@ -47,7 +47,7 @@
                 android:layout_weight="1.0"
                 android:background="@drawable/selector_tab"
                 android:button="@null"
-                android:drawableTop="@drawable/tabconfigicon"
+                android:drawableTop="@drawable/order_list_button_bg_selector"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="Tab2"
@@ -61,7 +61,7 @@
                 android:layout_weight="1.0"
                 android:background="@drawable/selector_tab"
                 android:button="@null"
-                android:drawableTop="@drawable/tabrecommd"
+                android:drawableTop="@drawable/user_button_bg_selector"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="Tab3"

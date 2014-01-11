@@ -38,7 +38,7 @@ public class MainContentFragment extends BaseFragment{
 	
 	private void initViews() {
 		View parent = this.getView();
-		fragments.add(new TabAFragment(menu));
+		fragments.add(new MenuListFragment(menu));
 		fragments.add(new TabBFragment(menu));
 		fragments.add(new TabCFragment(menu));
 		

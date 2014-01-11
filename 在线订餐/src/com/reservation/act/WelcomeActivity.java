@@ -25,7 +25,7 @@ public class WelcomeActivity extends Activity {
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(500);
 					SharedPreferences preferences = getSharedPreferences(PREFS_GUIDE_STRING, MODE_PRIVATE);
 					boolean isFirstGuide = preferences.getBoolean(PrefsGuideItem.IS_FIRST_GUIDE, true);
 					if (isFirstGuide == true) {
