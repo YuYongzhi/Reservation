@@ -51,6 +51,7 @@ public class CaiXiServlet extends HttpServlet {
 		out.print(ja);
 		System.out.println(ja);
 		out.close();
+		//WSei
 	}
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
