@@ -22,6 +22,8 @@ import android.widget.TextView;
  */
 public class BaseFragment extends Fragment 
 	implements View.OnClickListener{
+	
+	public static final String TAG = "BaseFragment";
 
 	public Context context;
 	

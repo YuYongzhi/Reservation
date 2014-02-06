@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.reservation.R;
 import com.reservation.adapter.ViewPagerAdapter;
+import com.reservation.utils.ActivityUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,6 +39,8 @@ public class GuideActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		ActivityUtils.addAct(GuideActivity.this);
 
 		initFullScreen();
 		setContentView(R.layout.activity_guide_layout);

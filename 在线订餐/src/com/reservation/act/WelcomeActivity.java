@@ -1,6 +1,7 @@
 package com.reservation.act;
 
 import com.reservation.R;
+import com.reservation.utils.ActivityUtils;
 
 import android.os.Bundle;
 import android.view.Window;
@@ -17,6 +18,9 @@ public class WelcomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		ActivityUtils.addAct(WelcomeActivity.this);
+		
 		initFullScreen();
 		setContentView(R.layout.activity_welcome_layout);
 		

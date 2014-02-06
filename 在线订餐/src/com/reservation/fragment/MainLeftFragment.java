@@ -1,15 +1,27 @@
 package com.reservation.fragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.reservation.R;
 import com.reservation.adapter.ExpandableListViewAdapter;
-import com.reservation.view.slidingmenu.buildin.BaseFragment;
 
+import static com.reservation.utils.JSONUtils.*;
+
+import com.reservation.utils.StringUtils.Manager;
+import com.reservation.view.FragmentListener;
+import com.reservation.view.FragmentListener.OnMenuItemClickListener;
+import com.reservation.view.slidingmenu.buildin.BaseFragment;
+import com.reservation.view.slidingmenu.lib.SlidingMenu;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +36,14 @@ public class MainLeftFragment extends BaseFragment {
 	private ExpandableListView mExListView;
 	private ExpandableListViewAdapter mExAdapter;
 	
-	private String[] parentStrs = new String[]{
-			"一组",
-			"二组",
-			"三组",
-			"四组",
-			"五组"
-	};
+	private LeftFragmentReceiver mReceiver;
+	private SlidingMenu menu;
+	private Context mContext;
+	private OnMenuItemClickListener itemClickListener;
 	
-	private String[][] childStrs = new String[][]{
-			{"1-1", "1-2", "1-3"},
-			{"2-1", "2-2", "2-3", "2-4"},
-			{"3-1", "3-2", "3-3", "3-4", "3-5"},
-			{"4-1", "4-2", "4-3", "4-4"},
-			{"5-1", "5-5", "5-6", "5-7", "5-8", "5-9", "5-10"}
-	};
+	public MainLeftFragment(SlidingMenu menu) {
+		this.menu = menu;
+	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.main_left_fragment_layout, null);
@@ -47,49 +52,84 @@ public class MainLeftFragment extends BaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mContext = getActivity();
+		registerReceiver();
 		this.initViews();
 	}
 	
 	private void initViews() {
 		View parent = this.getView();
-		
-		parentList = getParentData();
-		childList = getChildData();
-		
 		mExListView = (ExpandableListView) parent.findViewById(R.id.left_content_expandablelistview);
-		mExAdapter = new ExpandableListViewAdapter(context, parentList, childList);
-		mExListView.setAdapter(mExAdapter);
+		mExListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+				int parentId = (Integer) parentList.get(groupPosition).get("parentId");
+				int childCnt = childList.get(groupPosition).size();
+				if (childCnt == 0) {
+					itemClickListener.onItemClickListener(parentId, -1);
+					menu.toggle();
+				}
+				return false;
+			}
+		});
+		mExListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				int parentId = (Integer) parentList.get(groupPosition).get("parentId");
+				int childId = (Integer) childList.get(groupPosition).get(childPosition).get("childId");
+				itemClickListener.onItemClickListener(parentId, childId);
+				menu.toggle();
+				return false;
+			}
+		});
 	}
 	
-	public List<Map<String, Object>> getParentData() {
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		for(int i = 0; i < parentStrs.length; i ++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("parent", parentStrs[i]);
-			list.add(map);
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			itemClickListener = (OnMenuItemClickListener) activity;
+		} catch (ClassCastException e) {
+			Log.i(TAG, "ClassCastException:" + e.getMessage());
+			e.printStackTrace();
 		}
-		return list;
 	}
 	
-	public List<List<Map<String, Object>>> getChildData() {
-		List<List<Map<String, Object>>> list = new ArrayList<List<Map<String,Object>>>();
-		int parentLength = parentStrs.length;
-		int childLength = childStrs.length;
-		if (parentLength != childLength) {
-			return list;
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver();
+	}
+
+	public void registerReceiver() {
+		mReceiver = new LeftFragmentReceiver();
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Manager.LEFT_FRAGMENT_ACTION);
+		getActivity().registerReceiver(mReceiver, filter);
+	}
+	
+	public void unregisterReceiver() {
+		if (mReceiver != null) {
+			getActivity().unregisterReceiver(mReceiver);
 		}
-		for(int parent = 0; parent < parentLength; parent ++) {
-			List<Map<String, Object>> children = new ArrayList<Map<String,Object>>();
-			for(int child = 0; child < childStrs[parent].length; child ++) {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("child", childStrs[parent][child]);
-				children.add(map);
+	}
+	
+	public class LeftFragmentReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			Log.i(TAG, "Action:" + action);
+			if (Manager.LEFT_FRAGMENT_ACTION.equals(action)) {
+				String parentJSON = intent.getStringExtra("oneJSON");
+				String childJSON = intent.getStringExtra("twoJSON");
+				Log.i(TAG, "parentJSON=" + parentJSON);
+				Log.i(TAG, "childJSON=" + childJSON);
+				parentList = getParentList(parentJSON); 
+				childList = getChildList(parentJSON, childJSON);
+				mExAdapter = new ExpandableListViewAdapter(context, parentList, childList);
+				mExListView.setAdapter(mExAdapter);
 			}
-			if (parent == 2) {
-				children.clear();
-			}
-			list.add(children);
 		}
-		return list;
 	}
 }

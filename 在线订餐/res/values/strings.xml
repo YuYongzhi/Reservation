@@ -7,5 +7,12 @@
     
     <string name="left_content_title_menu">菜    单</string>
     <string name="left_content_global_search">全局搜索</string>
+    
+    <string name="menu_list_search_bar_cancel_text">取消</string>
 
+    <string name="network_check_title">网络异常</string>
+    <string name="network_check_message">网络不可用，请检查网络状态</string>
+    <string name="network_check_positive_text">网络设置</string>
+    <string name="network_check_negative_text">退出程序</string>
+    
 </resources>
