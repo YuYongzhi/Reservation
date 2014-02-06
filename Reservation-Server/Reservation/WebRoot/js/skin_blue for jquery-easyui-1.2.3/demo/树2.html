@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script type="text/javascript">
+		$(function(){
+			$('#ttda').tree({
+				onClick:function(node){
+					$('#ttda').tree('beginEdit', node.target);
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>可编辑的树</h1>
+	<div style="margin-bottom:10px">
+		点击节点开始编辑，按 enter键停止编辑或按esc键取消编辑。
+	</div>
+	<ul id="ttda" url="tree_data.json" animate="true"></ul>
+</body>
+</html>

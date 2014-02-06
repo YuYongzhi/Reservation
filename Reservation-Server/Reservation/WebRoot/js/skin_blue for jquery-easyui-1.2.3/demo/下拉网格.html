@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		$(function(){
+			$('#nn').combogrid({
+				panelWidth:450,
+				value:'006',
+
+				idField:'code',
+				textField:'name',
+				url:'datagrid_data.json',
+				columns:[[
+					{field:'code',title:'Code',width:60},
+					{field:'name',title:'Name',width:100},
+					{field:'addr',title:'Address',width:120},
+					{field:'col4',title:'Col41',width:100}
+				]]
+			});
+		});
+		function reload2(){
+			$('#nn').combogrid('grid').datagrid('reload');
+		}
+		function setValue2(){
+			$('#nn').combogrid('setValue', '002');
+		}
+		function getValue2(){
+			var val = $('#nn').combogrid('getValue');
+			alert(val);
+		}
+		function disable2(){
+			$('#nn').combogrid('disable');
+		}
+		function enable2(){
+			$('#nn').combogrid('enable');
+		}
+	</script>
+</head>
+<body>
+	<h1>下拉网格</h1>
+	<div style="margin-bottom:10px;margin-left:10px;">
+		<a href="#" onclick="reload2()">重新加载</a>
+		<a href="#" onclick="setValue2()">赋值</a>
+		<a href="#" onclick="getValue2()">取值</a>
+		<a href="#" onclick="disable2()">不可编辑</a>
+		<a href="#" onclick="enable2()">可编辑</a>
+	</div>
+	<div style="margin-left:10px;">
+	<select id="nn" name="dept" style="width:250px;"></select>
+	</div>
+</body>
+</html>

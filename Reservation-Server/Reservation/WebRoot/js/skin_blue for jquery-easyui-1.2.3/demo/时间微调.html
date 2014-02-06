@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		function enablekk(){
+			$('#ssnn').timespinner('enable');
+		}
+		function disablekk(){
+			$('#ssnn').timespinner('disable');
+		}
+	</script>
+</head>
+<body>
+	<h1>时间微调</h1>
+	<div style="margin-bottom:10px;">
+		<a href="#" onclick="enablekk()">可编辑</a>
+		<a href="#" onclick="disablekk()">不可编辑</a>
+	</div>
+	<span>开始时间: </span>
+	<input id="ssnn" class="easyui-timespinner" min="08:30" showSeconds="true" style="width:120px;"></input>
+	<span>结束时间: </span>
+	<input class="easyui-timespinner" required="true" style="width:80px;"  missingMessage="必填"></input>
+</body>
+</html>

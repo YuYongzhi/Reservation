@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		$(function(){
+			$('#hh1').click(function(){
+				$('#mb1,#mb2').menubutton({
+					disabled:true
+				});
+			});
+			$('#hh2').click(function(){
+				$('#mb1,#mb2').menubutton({
+					disabled:false
+				});
+			});
+			$('#hh3').click(function(){
+				$('#mb1,#mb2').menubutton({
+					plain:false
+				});
+			});
+			$('#hh4').click(function(){
+				$('#mb1,#mb2').menubutton({
+					plain:true
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+
+	<h1>菜单按钮</h1>
+	<p>菜单按钮包括链接按钮和菜单.</p> 
+	<p>当创建菜单按钮时，你应该把菜单这个属性指定给链接按钮</p>
+	<div style="margin-bottom:10px;">
+		<a href="javascript:void(0)" id="hh1">不可编辑</a>
+		<a href="javascript:void(0)" id="hh2">可编辑</a>
+		<a href="javascript:void(0)" id="hh3">3D</a>
+		<a href="javascript:void(0)" id="hh4">变简单</a>
+	</div>
+	<div style="background:#C9EDCC;padding:5px;width:600px;">
+		<a href="javascript:void(0)" id="mb1" class="easyui-menubutton" menu="#mm1" iconCls="icon-edit">Edit</a>
+		<a href="javascript:void(0)" id="mb2" class="easyui-menubutton" menu="#mm2" iconCls="icon-help">Help</a>
+	</div>
+	<div id="mm1" style="width:150px;">
+		<div iconCls="icon-undo">Undo</div>
+		<div iconCls="icon-redo">Redo</div>
+		<div class="menu-sep"></div>
+		<div>Cut</div>
+		<div>Copy</div>
+		<div>Paste</div>
+		<div class="menu-sep"></div>
+		<div>
+			<span>Toolbar</span>
+			<div style="width:150px;">
+				<div>Address</div>
+				<div>Link</div>
+				<div>Navigation Toolbar</div>
+				<div>Bookmark Toolbar</div>
+				<div class="menu-sep"></div>
+				<div>New Toolbar...</div>
+			</div>
+		</div>
+		<div iconCls="icon-remove">Delete</div>
+		<div>Select All</div>
+	</div>
+	<div id="mm2" style="width:100px;">
+		<div>Help</div>
+		<div>Update</div>
+		<div>About</div>
+	</div>
+</body>
+</html>

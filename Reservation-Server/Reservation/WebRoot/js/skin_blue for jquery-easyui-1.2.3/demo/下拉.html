@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		$(function(){
+			$('#cob').combo({
+				required:true,
+				editable:false,
+				 missingMessage:'必填'
+			});
+			$('#sp').appendTo($('#cob').combo('panel'));
+			$('#sp input').click(function(){
+				var v = $(this).val();
+				var s = $(this).next('span').text();
+				$('#cob').combo('setValue', v).combo('setText', s).combo('hidePanel');
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>下拉</h1>
+	<div style="margin-left:10px;">
+	<select id="cob"></select>
+	</div>
+	<div id="sp">
+		<div style="color:#99BBE8;background:#fafafa;padding:5px;">选择语言</div>
+		<input type="radio" name="lang" value="01"><span>Java</span><br/>
+		<input type="radio" name="lang" value="02"><span>C#</span><br/>
+		<input type="radio" name="lang" value="03"><span>Ruby</span><br/>
+		<input type="radio" name="lang" value="04"><span>Basic</span><br/>
+		<input type="radio" name="lang" value="05"><span>Fortran</span>
+	</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		$(function(){
+			$('#pp').pagination({
+				total:114,
+				buttons:[{
+					iconCls:'icon-add',
+					handler:function(){
+						alert('添加');
+					}
+				},{
+					iconCls:'icon-cut',
+					handler:function(){
+						alert('剪切');
+					}
+				},{
+					iconCls:'icon-save',
+					handler:function(){
+						alert('保存');
+					}
+				}],
+				onSelectPage:function(pageNumber, pageSize){
+					$(this).pagination('loading');
+					alert('pageNumber:'+pageNumber+',pageSize:'+pageSize);
+					$(this).pagination('loaded');
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>分页</h1>
+	<div style="margin:10px 0;">
+		<a href="#" onclick="javascript:$('#pp').pagination({loading:false})">加载完成</a>
+		<a href="#" onclick="javascript:$('#pp').pagination({loading:true})">正加载</a>
+	</div>
+	
+	<div id="pp" style="background:#efefef;border:1px solid #ccc;"></div>
+</body>
+</html>

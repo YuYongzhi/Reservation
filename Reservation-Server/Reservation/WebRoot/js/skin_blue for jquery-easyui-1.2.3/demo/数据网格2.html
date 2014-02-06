@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>jQuery EasyUI</title>
+	<script>
+		$(function(){
+			$('#test11').datagrid({
+				title:'My Title',
+				iconCls:'icon-save',
+				width:600,
+				height:500,
+				nowrap: false,
+				striped: true,
+				collapsible:true,
+				fit:true,
+				url:'datagrid_data.json',
+				sortName: 'code',
+				sortOrder: 'desc',
+				remoteSort: false,
+				idField:'code',
+				frozenColumns:[[
+	                {field:'ck',checkbox:true},
+	                {title:'code',field:'code',width:80,sortable:true}
+				]],
+				columns:[[
+			        {title:'Base Information',colspan:3},
+					{field:'opt',title:'Operation',width:100,align:'center', rowspan:2,
+						formatter:function(value,rec){
+							return '<span style="color:red">Edit Delete</span>';
+						}
+					}
+				],[
+					{field:'name',title:'Name',width:120},
+					{field:'addr',title:'Address',width:120,rowspan:2,sortable:true,
+						sorter:function(a,b){
+							return (a>b?1:-1);
+						}
+					},
+					{field:'col4',title:'Col41',width:150,rowspan:2}
+				]],
+				pagination:true,
+				rownumbers:true,
+			
+				searchbar:{
+				
+					forms:[{
+							//id:'',
+							type:'text',
+							name:'name',
+							label:'名字'
+							
+						},{
+							
+							type:'text',
+							name:'addr',
+							label:'地址'
+							
+							
+	
+						},
+						{
+							
+							type:'text',
+							name:'col4',
+							label:'代号'
+							}
+					]
+			 },
+				toolbar:[{
+					id:'btnadd',
+					text:'添加',
+					iconCls:'icon-add',
+					handler:function(){
+						$('#btnsave').linkbutton('enable');
+						alert('add')
+					}
+				},{
+					id:'btncut',
+					text:'剪切',
+					iconCls:'icon-cut',
+					handler:function(){
+						$('#btnsave').linkbutton('enable');
+						alert('cut')
+					}
+				},'->',{
+					id:'btnsave',
+					text:'保存',
+					disabled:true,
+					iconCls:'icon-save',
+					handler:function(){
+						$('#btnsave').linkbutton('disable');
+						alert('save')
+					}
+				}]
+			});
+			var p = $('#test11').datagrid('getPager');
+			if (p){
+				$(p).pagination({
+					onBeforeRefresh:function(){
+						alert('before refresh');
+					}
+				});
+			}
+		});
+		function resize5(){
+			$('#test11').datagrid('resize', {
+				width:700,
+				height:400
+			});
+		}
+		function getSelected5(){
+			var selected = $('#test11').datagrid('getSelected');
+			if (selected){
+				alert(selected.code+":"+selected.name+":"+selected.addr+":"+selected.col4);
+			}
+		}
+		function getSelections5(){
+			var ids = [];
+			var rows = $('#test11').datagrid('getSelections');
+			for(var i=0;i<rows.length;i++){
+				ids.push(rows[i].code);
+			}
+			alert(ids.join(':'));
+		}
+		function clearSelections5(){
+			$('#test11').datagrid('clearSelections');
+		}
+		function selectRow5(){
+			$('#test11').datagrid('selectRow',2);
+		}
+		function selectRecord5(){
+			$('#test11').datagrid('selectRecord','002');
+		}
+		function unselectRow5(){
+			$('#test11').datagrid('unselectRow',2);
+		}
+		function mergeCells5(){
+			$('#test11').datagrid('mergeCells',{
+				index:2,
+				field:'addr',
+				rowspan:2,
+				colspan:2
+			});
+		}
+	</script>
+</head>
+<body>
+	<h1>数据网格</h1>
+	<div style="margin-bottom:10px;">
+		<a href="#" onclick="resize5()">调整大小</a>
+		<a href="#" onclick="getSelected5()">第一次选择的行记录</a>
+		<a href="#" onclick="getSelections5()">所有选定行</a>
+		<a href="#" onclick="clearSelections5()">取消所有选择</a>
+		<a href="#" onclick="selectRow5()">通过索引选择某行</a>
+		<a href="#" onclick="selectRecord5()">通过id选择一行</a>
+		<a href="#" onclick="unselectRow5()">通过索引取消选择某行</a>
+		<a href="#" onclick="mergeCells5()">合并单元格</a>
+	</div>
+
+	
+	<table id="test11"></table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+
+	<script>
+		/*$(function(){
+			var p = $('#cc').layout('panel','west').panel({
+				onCollapse:function(){
+					alert('collapse');
+				}
+			});
+			setTimeout(function(){
+				$('#cc').layout('collapse','east');
+			},0);
+		});*/
+	</script>
+</head>
+<body >
+<div id="cc" class="easyui-layout" fit="true">
+	<div region="north" border="false" style="height:60px;background:#B3DFDA;">北部区域</div>
+	<div region="west" split="true" title="West" style="width:150px;padding:10px;">西部区域</div>
+	<div region="east" split="true" title="East" style="width:100px;padding:10px;">东部区域</div>
+	<div region="south" border="false" style="height:50px;background:#A9FACD;padding:10px;">南部区域</div>
+	<div region="center" title="Main Title">
+	</div>
+	</div>
+</body>
+</html>

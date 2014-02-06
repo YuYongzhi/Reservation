@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>jQuery EasyUI</title>
+	<script>
+		var products = [
+		    {productid:'FI-SW-01',name:'Koi'},
+		    {productid:'K9-DL-01',name:'Dalmation'},
+		    {productid:'RP-SN-01',name:'Rattlesnake'},
+		    {productid:'RP-LI-02',name:'Iguana'},
+		    {productid:'FL-DSH-01',name:'Manx'},
+		    {productid:'FL-DLH-02',name:'Persian'},
+		    {productid:'AV-CB-01',name:'Amazon Parrot'}
+		];
+		function productFormatter(value){
+			
+				var productsNames = "";
+							var arrayValue = value.split(",");
+							for(var j=0;j<arrayValue.length;j++){
+								for(var i=0; i<products.length; i++){
+									if (products[i].productid == arrayValue[j]){
+										if(j==arrayValue.length-1){
+											productsNames += products[i].name; 
+										}else{
+											productsNames += products[i].name+","; 
+										}
+									} 
+								}
+							}
+							return productsNames;
+		}
+		$(function(){
+			var lastIndex;
+			$('#mul').datagrid({
+				toolbar:[{
+					text:'添加',
+					iconCls:'icon-add',
+					handler:function(){
+					$('#mul').datagrid('endEdit', lastIndex);
+						$('#mul').datagrid('appendRow',{
+							itemid:'',
+							productid:'',
+							listprice:'',
+							unitprice:'',
+							attr1:'',
+							status:'P'
+						});
+						var lastIndex = $('#mul').datagrid('getRows').length-1;
+						$('#mul').datagrid('selectRow', lastIndex);
+						$('#mul').datagrid('beginEdit', lastIndex);
+					}
+				},'-',{
+					text:'删除',
+					iconCls:'icon-remove',
+					handler:function(){
+						var row = $('#mul').datagrid('getSelected');
+						if (row){
+							var index = $('#mul').datagrid('getRowIndex', row);
+							$('#mul').datagrid('deleteRow', index);
+						}
+					}
+				},'-',{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						$('#mul').datagrid('acceptChanges');
+					}
+				},'->',{
+					text:'返回',
+					iconCls:'icon-undo',
+					handler:function(){
+						$('#mul').datagrid('rejectChanges');
+					}
+				},'-',{
+					text:'获取变化项',
+					iconCls:'icon-search',
+					handler:function(){
+						var rows = $('#mul').datagrid('getChanges');
+						alert('changed rows: ' + rows.length + ' lines');
+					}
+				}],
+				onBeforeLoad:function(){
+					$(this).datagrid('rejectChanges');
+				},
+				onClickRow:function(rowIndex){
+					if (lastIndex != rowIndex){
+						$('#mul').datagrid('endEdit', lastIndex);
+						$('#mul').datagrid('beginEdit', rowIndex);
+					}
+					lastIndex = rowIndex;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>可编辑的数据网格   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修复的bug：在Product列中，从下拉框里选择数据</h1>
+	
+	<table id="mul" style="width:750px;height:auto"
+			title="可编辑的数据网格" iconCls="icon-edit" singleSelect="true"
+			idField="itemid" url="datagrid_data2.json">
+		<thead>
+			<tr>
+				<th field="itemid" width="80">Item ID</th>
+				<th field="productid" width="100" formatter="productFormatter" editor="{type:'combobox',options:{valueField:'productid',multiple:true,textField:'name',data:products,required:true}}">Product</th>
+				<th field="listprice" width="80" align="right" editor="{type:'numberbox',options:{precision:1}}">List Price</th>
+				<th field="unitcost" width="80" align="right" editor="numberbox">Unit Cost</th>
+				<th field="attr1" width="150" editor="text">Attribute</th>
+				<th field="date" width="150"  editor="datebox">Date</th>
+				<th field="status" width="60" align="center" editor="{type:'checkbox',options:{on:'P',off:''}}">Status</th>
+			</tr>
+		</thead>
+	</table>
+</body>
+</html>

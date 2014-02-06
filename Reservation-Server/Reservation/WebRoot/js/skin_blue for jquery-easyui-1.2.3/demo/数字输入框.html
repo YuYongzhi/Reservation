@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		function disable6(){
+			$('#num').numberbox('disable');
+		}
+		function enable6(){
+			$('#num').numberbox('enable');
+		}
+	</script>
+</head>
+<body>
+	<h1>数字输入框</h1>
+	<p>输入框里只能输入数字</p>
+	<div style="margin-bottom:10px;">
+		<a href="#" onclick="disable6()">不可编辑</a>
+		<a href="#" onclick="enable6()">可编辑</a>
+	</div>
+	<input id="num" class="easyui-numberbox" min="5.5" max="20" precision="2" required="true"  />
+
+</body>
+</html>

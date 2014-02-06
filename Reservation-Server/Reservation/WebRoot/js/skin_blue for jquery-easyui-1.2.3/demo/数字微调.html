@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		function enable9(){
+			$('#sss').numberspinner('enable');
+		}
+		function disable9(){
+			$('#sss').numberspinner('disable');
+		}
+	</script>
+</head>
+<body>
+	<h1>数字微调</h1>
+	<div style="margin-bottom:10px;">
+		<a href="#" onclick="enable9()">可编辑</a>
+		<a href="#" onclick="disable9()">不可编辑</a>
+	</div>
+	<span>年龄: </span>
+	<input id="sss" class="easyui-numberspinner" min="10" max="100" required="true" style="width:80px;"  missingMessage="必填"></input>
+	<span>薪资: </span>
+	<input class="easyui-numberspinner" value="1000" increment="100" style="width:120px;"></input>
+</body>
+</html>

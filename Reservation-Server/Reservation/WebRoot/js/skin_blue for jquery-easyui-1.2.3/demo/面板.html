@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		function open1(){
+			$('#p').panel('open');
+		}
+		function close1(){
+			$('#p').panel('close');
+		}
+		function load1(){
+			$('#p').panel({
+				href:'tabs_href_test.html'
+			});
+		}
+	</script>
+</head>
+<body style="background:#fafafa;">
+<h1>面板</h1>
+<div style="margin-bottom:10px;">
+<a href="#" onclick="open1()">打开</a>
+<a href="#" onclick="close1()">关闭</a>
+<a href="#" onclick="load1()">加载</a>
+</div>
+<div style="width:600px;height:300px;border:1px solid red;padding:5px;">
+	<div id="p" class="easyui-panel" title="标题" icon="icon-save" collapsible="true" minimizable="true" maximizable=true closable="true" style="width:500px;height:150px;padding:10px;background:#fafafa;">
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+		<p>panel</p>
+	</div>
+</div>
+</body>
+</html>

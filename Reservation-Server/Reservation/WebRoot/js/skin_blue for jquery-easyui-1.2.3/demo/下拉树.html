@@ -1,0 +1,37 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		function reload22(){
+			$('#cce').combotree('reload');
+		}
+		function setValue22(){
+			$('#cce').combotree('setValue', 2);
+		}
+		function getValue22(){
+			var val = $('#cce').combotree('getValue');
+			alert(val);
+		}
+		function disable22(){
+			$('#cce').combotree('disable');
+		}
+		function enable22(){
+			$('#cce').combotree('enable');
+		}
+	</script>
+</head>
+<body>
+	<h1>下拉树</h1>
+	<div style="margin-bottom:10px;">
+		<a href="#" onclick="reload22()">重新加载</a>
+		<a href="#" onclick="setValue22()">赋值</a>
+		<a href="#" onclick="getValue22()">取值</a>
+		<a href="#" onclick="disable22()">不可编辑</a>
+		<a href="#" onclick="enable22()">可编辑</a>
+	</div>
+	<span>选择:</span>
+	<input id="cce" class="easyui-combotree" url="tree_data.json" value="2" required="true" style="width:200px;">
+	<select class="easyui-combotree" name="language" url="tree_data.json" multiple="true" cascadeCheck="false" style="width:200px;"></select>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script type="text/javascript">
+		$(function(){
+			$('#treeid').tree({
+				checkbox: true,
+				url: 'tree_data.json',
+				onClick:function(node){
+					$(this).tree('toggle', node.target);
+					//alert('you dbclick '+node.id+"  "+node.text);
+				},
+				onContextMenu: function(e, node){
+					e.preventDefault();
+					$('#treeid').tree('select', node.target);
+					$('#mmt').menu('show', {
+						left: e.pageX,
+						top: e.pageY
+					});
+				}
+			});
+		});
+		function reload44(){
+			var node = $('#treeid').tree('getSelected');
+			if (node){
+				$('#treeid').tree('reload', node.target);
+			} else {
+				$('#treeid').tree('reload');
+			}
+		}
+		function getChildren44(){
+			var node = $('#treeid').tree('getSelected');
+			if (node){
+				var children = $('#treeid').tree('getChildren', node.target);
+			} else {
+				var children = $('#treeid').tree('getChildren');
+			}
+			var s = '';
+			for(var i=0; i<children.length; i++){
+				s += children[i].text + ',';
+			}
+			alert(s);
+		}
+		function getChecked44(){
+			var nodes = $('#treeid').tree('getChecked');
+			var s = '';
+			for(var i=0; i<nodes.length; i++){
+				if (s != '') s += ',';
+				s += nodes[i].text;
+			}
+			alert(s);
+		}
+		function getSelected44(){
+			var node = $('#treeid').tree('getSelected');
+			if(node){
+			alert(node.text);
+			}
+		}
+		function collapse44(){
+			var node = $('#treeid').tree('getSelected');
+			if(node){
+			$('#treeid').tree('collapse',node.target);
+			}
+		}
+		function expand44(){
+			var node = $('#treeid').tree('getSelected');
+			if(node){
+			$('#treeid').tree('expand',node.target);
+			}
+		}
+		function collapseAll44(){
+			var node = $('#treeid').tree('getSelected');
+			if (node){
+				$('#treeid').tree('collapseAll', node.target);
+			} else {
+				$('#treeid').tree('collapseAll');
+			}
+		}
+		function expandAll44(){
+			var node = $('#treeid').tree('getSelected');
+			if (node){
+				$('#treeid').tree('expandAll', node.target);
+			} else {
+				$('#treeid').tree('expandAll');
+			}
+		}
+		function append44(){
+			var node = $('#treeid').tree('getSelected');
+			$('#treeid').tree('append',{
+				parent: (node?node.target:null),
+				data:[{
+					text:'new1',
+					checked:true
+				},{
+					text:'new2',
+					state:'closed',
+					children:[{
+						text:'subnew1'
+					},{
+						text:'subnew2'
+					}]
+				}]
+			});
+		}
+		function remove44(){
+			var node = $('#treeid').tree('getSelected');
+			if(node){
+			$('#treeid').tree('remove', node.target);
+			}
+		}
+		function update44(){
+			var node = $('#treeid').tree('getSelected');
+			if (node){
+				node.text = '<span style="font-weight:bold">new text</span>';
+				node.iconCls = 'icon-save';
+				$('#treeid').tree('update', node);
+			}
+		}
+		function isLeaf44(){
+			var node = $('#treeid').tree('getSelected');
+			if(node){
+			var b = $('#treeid').tree('isLeaf', node.target);
+			alert(b);
+			}
+		}
+	</script>
+</head>
+<body>
+
+	<h1>树</h1>
+	<p>根据HTML标签创建</p>	
+
+	<ul id="treea" class="easyui-tree" animate="true" dnd="true">
+		<li>
+			<span>Folder</span>
+			<ul>
+				<li state="closed">
+					<span>Sub Folder 1</span>
+					<ul>
+						<li>
+							<span><a href="#">File 11</a></span>
+						</li>
+						<li>
+							<span>File 12</span>
+						</li>
+						<li>
+							<span>File 13</span>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<span>File 2</span>
+				</li>
+				<li>
+					<span>File 3</span>
+				</li>
+				<li>File 4</li>
+				<li>File 5</li>
+			</ul>
+		</li>
+		<li>
+			<span>File21</span>
+		</li>
+	</ul>
+	<hr></hr>
+	<p>根据json数据创建</p>
+	<div style="margin:10px;">
+		<a href="#" onclick="reload44()"> 重新加载</a>
+		<a href="#" onclick="getChildren44()">获取子节点</a>
+		<a href="#" onclick="getChecked44()">获取被勾选节点</a>
+		<a href="#" onclick="getSelected44()">获取选中节点</a>
+		<a href="#" onclick="collapse44()">折叠选中节点</a>
+		<a href="#" onclick="expand44()">展开选中节点</a>
+		<a href="#" onclick="collapseAll44()">折叠所有节点</a>
+		<a href="#" onclick="expandAll44()">展开所有节点</a>
+		<a href="#" onclick="append44()">追加</a>
+		<a href="#" onclick="remove44()">删除选中节点</a>
+		<a href="#" onclick="update44()">修改</a>
+		<a href="#" onclick="isLeaf44()">是否是子节点</a>
+	</div>
+
+	<ul id="treeid"></ul>
+	
+	<div id="mmt" class="easyui-menu" style="width:120px;">
+		<div onclick="append44()" iconCls="icon-add">追加</div>
+		<div onclick="remove44()" iconCls="icon-remove">删除</div>
+		<div class="menu-sep"></div>
+		<div onclick="expand44()">展开</div>
+		<div onclick="collapse44()">折叠</div>
+	</div>
+</body>
+</html>

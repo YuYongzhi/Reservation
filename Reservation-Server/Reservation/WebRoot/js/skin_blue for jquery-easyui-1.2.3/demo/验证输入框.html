@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+
+	<style type="text/css">
+		#inputStyle,#inputStyle1,#inputStyle2,#inputStyle3{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+		
+	</style>
+</head>
+<body>
+
+	<h1>验证输入框</h1>
+	<div>
+	<table>
+		<tr>
+			<td>姓名:</td>
+			<td><input class="easyui-validatebox" required="true" validType="length[1,3]" id="inputStyle"></td>
+		</tr>
+		<tr>
+			<td>电子邮件:</td>
+			<td><input class="easyui-validatebox" validType="email" id="inputStyle1"></td>
+		</tr>
+		<tr>
+			<td>URL:</td>
+			<td><input class="easyui-validatebox" required="true" validType="url" id="inputStyle2"></td>
+		</tr>
+		<tr>
+			<td>名气:</td>
+			<td><textarea class="easyui-validatebox" required="true" style="height:100px;" id="inputStyle3"></textarea></td>
+		</tr>
+	</table>
+	</div>
+</body>
+</html>

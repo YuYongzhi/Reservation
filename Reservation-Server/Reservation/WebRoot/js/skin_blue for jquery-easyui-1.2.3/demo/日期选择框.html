@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script>
+		function disable4(){
+			$('#dab').datebox('disable');
+		}
+		function enable4(){
+			$('#dab').datebox('enable');
+		}
+	</script>
+</head>
+<body>
+	<h1>日期选择框</h1>
+	<div style="margin-bottom:10px;margin-left:10px;">
+		<a href="#" onclick="disable4()">不可编辑</a>
+		<a href="#" onclick="enable4()">可编辑</a>
+	</div>
+	<div  style="margin-left:10px;">
+	<input id="dab" class="easyui-datebox" required="true"></input>
+	</div>
+</body>
+</html>

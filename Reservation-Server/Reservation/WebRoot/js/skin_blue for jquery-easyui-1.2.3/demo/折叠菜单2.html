@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script type="text/javascript">
+		function select2(){
+			$('#aadion').accordion('select','Title1');
+		}
+		var idx = 1;
+		function add2(){
+			$('#aadion').accordion('add',{
+				title:'New Title'+idx,
+				content:'New Content'+idx
+			});
+			idx++;
+		}
+		function remove2(){
+			var pp = $('#aadion').accordion('getSelected');
+			if (pp){
+				var title = pp.panel('options').title;
+				$('#aadion').accordion('remove',title);
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>折叠菜单</h1>
+	<div style="margin-bottom: 10px;margin-left:10px;">
+		<a href="#" onclick="select2()">选择</a>
+		<a href="#" onclick="add2()">添加</a>
+		<a href="#" onclick="remove2()">删除</a>
+	</div>
+	<div id="aadion"  class="easyui-accordion" style="width:200px;height:300px;margin-left:10px;">
+		<div headerCls="accordion-font-color" title="基础数据管理" icon="icon-accordion-node" style="overflow:auto;padding:10px;">
+			<h3 style="color:#0099FF;">Accordion for jQuery</h3>
+			<p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>
+		</div>
+		<div headerCls="accordion-font-color" title="基础数据管理" icon="icon-accordion-node" selected="true" style="padding:10px;">
+			content2
+		</div>
+		<div headerCls="accordion-font-color" title="基础数据管理" icon="icon-accordion-node">
+			content3
+		</div>
+	</div>
+</body>
+</html>

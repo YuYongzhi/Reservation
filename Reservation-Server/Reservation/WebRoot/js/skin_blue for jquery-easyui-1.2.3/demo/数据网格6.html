@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>jQuery EasyUI</title>
+	<script>
+		var products = [
+		    {productid:'FI-SW-01',name:'Koi'},
+		    {productid:'K9-DL-01',name:'Dalmation'},
+		    {productid:'RP-SN-01',name:'Rattlesnake'},
+		    {productid:'RP-LI-02',name:'Iguana'},
+		    {productid:'FL-DSH-01',name:'Manx'},
+		    {productid:'FL-DLH-02',name:'Persian'},
+		    {productid:'AV-CB-01',name:'Amazon Parrot'}
+		];
+		function productFormatter(value){
+	
+			for(var i=0; i<products.length; i++){
+				if (products[i].productid == value) return products[i].name;
+			}
+			return value;
+		}
+		$(function(){
+			var lastIndex;
+			$('#sin6').datagrid({
+				toolbar:[{
+					text:'添加',
+					iconCls:'icon-add',
+					handler:function(){
+					$('#sin6').datagrid('endEdit', lastIndex);
+						$('#sin6').datagrid('appendRow',{
+							itemid:'',
+							productid:'',
+							listprice:'',
+							unitprice:'',
+							attr1:'',
+							status:'P'
+						});
+						var lastIndex = $('#sin6').datagrid('getRows').length-1;
+						$('#sin6').datagrid('selectRow', lastIndex);
+						$('#sin6').datagrid('beginEdit', lastIndex);
+					}
+				},'-',{
+					text:'删除',
+					iconCls:'icon-remove',
+					handler:function(){
+						var row = $('#sin6').datagrid('getSelected');
+						if (row){
+							var index = $('#sin6').datagrid('getRowIndex', row);
+							$('#sin6').datagrid('deleteRow', index);
+						}
+					}
+				},'-',{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						$('#sin6').datagrid('acceptChanges');
+					}
+				},'->',{
+					text:'返回',
+					iconCls:'icon-undo',
+					handler:function(){
+						$('#sin6').datagrid('rejectChanges');
+					}
+				},'-',{
+					text:'获取变化项',
+					iconCls:'icon-search',
+					handler:function(){
+						var rows = $('#sin6').datagrid('getChanges');
+						alert('changed rows: ' + rows.length + ' lines');
+					}
+				}],
+				onBeforeLoad:function(){
+					$(this).datagrid('rejectChanges');
+				},
+				onClickRow:function(rowIndex){
+					if (lastIndex != rowIndex){
+						$('#sin6').datagrid('endEdit', lastIndex);
+						$('#sin6').datagrid('beginEdit', rowIndex);
+					}
+					lastIndex = rowIndex;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>可编辑的数据网格  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新加功能: 工具栏上的获取变化项和返回按钮位于工具栏的右边</h1>
+	
+	<table id="sin6" style="width:750px;height:auto"
+			title="可编辑的数据网格" iconCls="icon-edit" singleSelect="true"
+			idField="itemid" url="datagrid_data2.json">
+		<thead>
+			<tr>
+				<th field="itemid" width="80">Item ID</th>
+				<th field="productid" width="100" formatter="productFormatter" editor="{type:'combobox',options:{valueField:'productid',textField:'name',data:products,required:true}}">Product</th>
+				<th field="listprice" width="80" align="right" editor="{type:'numberbox',options:{precision:1}}">List Price</th>
+				<th field="unitcost" width="80" align="right" editor="numberbox">Unit Cost</th>
+				<th field="attr1" width="150" editor="text">Attribute</th>
+				<th field="date" width="150"  editor="datebox">Date</th>
+				<th field="status" width="60" align="center" editor="{type:'checkbox',options:{on:'P',off:''}}">Status</th>
+			</tr>
+		</thead>
+	</table>
+</body>
+</html>

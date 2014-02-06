@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+	<script type="text/javascript">
+		function select(){
+			$('#aan').accordion('select','标题1');
+		}
+		var idx = 1;
+		function add(){
+			$('#aan').accordion('add',{
+				title:'新建标题'+idx,
+				content:'新建内容'+idx
+			});
+			idx++;
+		}
+		function remove(){
+			var pp = $('#aan').accordion('getSelected');
+			if (pp){
+				var title = pp.panel('options').title;
+			
+				$('#aan').accordion('remove',title);
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>折叠标签</h1>
+	<div style="margin-bottom: 10px;margin-left:10px;">
+		<a href="#" onclick="select()">选择</a>
+		<a href="#" onclick="add()">添加</a>
+		<a href="#" onclick="remove()">移除</a>
+	</div>
+	<div id="aan" class="easyui-accordion" style="width:700px;height:300px;margin-left:10px;" animate="false">
+		<div title="标题1" iconCls="icon-ok" style="overflow:auto;padding:10px;">
+			<h3 style="color:#0099FF;">jQuery的折叠菜单</h3>
+			<p>折叠菜单是jQuery-easyui框架的一部分。能够使你更容易的在web网页上确定折叠菜单组件。</p>
+		</div>
+		<div title="标题2" iconCls="icon-reload" selected="true" style="padding:10px;">
+			content2
+		</div>
+		<div title="标题3" class="accordion-font-color">
+		
+
+在这里，要想显示滚动条，您必须添加 "&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "
+ http://www.w3.org/TR/html4/loose.dtd"&gt;" 或 设置"animate:false"<br>
+ 		
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+			content3<br>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>jQuery EasyUI</title>
+	<script>
+		$(function(){
+			$('#testd').treegrid({
+				title:'树形网格',
+				iconCls:'icon-save',
+				width:500,
+				height:350,
+				nowrap: false,
+				rownumbers: true,
+				animate:true,
+				collapsible:true,
+				url:'treegrid_data.json',
+				idField:'code',
+				treeField:'code',
+				frozenColumns:[[
+	                {title:'Code',field:'code',width:150,
+		                formatter:function(value){
+		                	return '<span style="color:red">'+value+'</span>';
+		                }
+	                }
+				]],
+				columns:[[
+					{field:'name',title:'Name',width:120},
+					{field:'addr',title:'Address',width:120,rowspan:2},
+					{field:'col4',title:'Col41',width:150,rowspan:2}
+				]],
+				onBeforeLoad:function(row,param){
+					if (row){
+						$(this).treegrid('options').url = 'treegrid_subdata.json';
+					} else {
+						$(this).treegrid('options').url = 'treegrid_data.json';
+					}
+				},
+				onContextMenu: function(e,row){
+					e.preventDefault();
+					$(this).treegrid('unselectAll');
+					$(this).treegrid('select', row.code);
+					$('#mme').menu('show', {
+						left: e.pageX,
+						top: e.pageY
+					});
+				}
+			});
+		});
+
+		function reload23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				$('#testd').treegrid('reload', node.code);
+			} else {
+				$('#testd').treegrid('reload');
+			}
+		}
+		function getChildren23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				var nodes = $('#testd').treegrid('getChildren', node.code);
+			} else {
+				var nodes = $('#testd').treegrid('getChildren');
+			}
+			var s = '';
+			for(var i=0; i<nodes.length; i++){
+				s += nodes[i].code + ',';
+			}
+			alert(s);
+		}
+		function getSelected23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				alert(node.code+":"+node.name);
+			}
+		}
+		function collapse23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				$('#testd').treegrid('collapse', node.code);
+			}
+		}
+		function expand23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				$('#testd').treegrid('expand', node.code);
+			}
+		}
+		function collapseAll23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				$('#testd').treegrid('collapseAll', node.code);
+			} else {
+				$('#testd').treegrid('collapseAll');
+			}
+		}
+		function expandAll23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				$('#testd').treegrid('expandAll', node.code);
+			} else {
+				$('#testd').treegrid('expandAll');
+			}
+		}
+		function expandTo23(){
+			$('#testd').treegrid('expandTo', '02013');
+			$('#testd').treegrid('select', '02013');
+		}
+		var codeIndex = 1000;
+		function append23(){
+			codeIndex++;
+			var data = [{
+				code: 'code'+codeIndex,
+				name: 'name'+codeIndex,
+				addr: 'address'+codeIndex,
+				col4: 'col4 data'
+			}];
+			var node = $('#testd').treegrid('getSelected');
+			$('#testd').treegrid('append', {
+				parent: (node?node.code:null),
+				data: data
+			});
+		}
+		function remove23(){
+			var node = $('#testd').treegrid('getSelected');
+			if (node){
+				$('#testd').treegrid('remove', node.code);
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>树形网格</h1>
+	<div style="margin:10px;">
+		<a href="#" onclick="reload23()">重新加载</a>
+		<a href="#" onclick="getChildren23()">获取子节点</a>
+		<a href="#" onclick="getSelected23()">获取选中节点</a>
+		<a href="#" onclick="collapse23()">折叠</a>
+		<a href="#" onclick="expand23()">展开</a>
+		<a href="#" onclick="collapseAll23()">折叠所有</a>
+		<a href="#" onclick="expandAll23()">展开所有</a>
+		<a href="#" onclick="expandTo23()">根据id展开</a>
+		<a href="#" onclick="append23()">添加</a>
+	</div>
+	
+	<table id="testd"></table>
+	
+	<div id="mme" class="easyui-menu" style="width:120px;">
+		<div onclick="append23()">添加</div>
+		<div onclick="remove23()">删除</div>
+	</div>	
+</body>
+</html>
