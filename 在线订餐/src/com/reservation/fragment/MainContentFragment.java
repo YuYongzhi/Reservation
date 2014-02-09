@@ -47,9 +47,9 @@ public class MainContentFragment extends BaseFragment{
 	private View parent;
 	private RadioGroup rgs;
 	private List<Fragment> fragments = new ArrayList<Fragment>();
-	private ConnectionReceiver connectionReceiver;
-	private NetworkDialog networkDialog;
-	private WaitLoadingWindow loadingWindow;
+//	private ConnectionReceiver connectionReceiver;
+//	private NetworkDialog networkDialog;
+//	private WaitLoadingWindow loadingWindow;
 	
 	private boolean isGetOne = false;
 	private boolean isGetTwo = false;
@@ -101,48 +101,48 @@ public class MainContentFragment extends BaseFragment{
 		super.onActivityCreated(savedInstanceState);
 		mContext = getActivity();
 		this.initViews();
-		initNetworkDialog();
-		registerReceiver();
+//		initNetworkDialog();
+//		registerReceiver();
 	}
 	
-	private void requestData() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				String json = HttpAPI.getOneLevelTypeJSON();
-				Message message = new Message();
-				message.what = 1;
-				message.obj = json;
-				mHandler.sendMessage(message);
-			}
-		}).start();
-		
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				String json = HttpAPI.getTwoLevelTypeJSON();
-				Message message = new Message();
-				message.what = 2;
-				message.obj = json;
-				mHandler.sendMessage(message);
-			}
-		}).start();
-	}
+//	private void requestData() {
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				String json = HttpAPI.getOneLevelTypeJSON();
+//				Message message = new Message();
+//				message.what = 1;
+//				message.obj = json;
+//				mHandler.sendMessage(message);
+//			}
+//		}).start();
+//		
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				String json = HttpAPI.getTwoLevelTypeJSON();
+//				Message message = new Message();
+//				message.what = 2;
+//				message.obj = json;
+//				mHandler.sendMessage(message);
+//			}
+//		}).start();
+//	}
 	
-	private void registerReceiver() {
-		Log.i(TAG, "registerReceiver");
-		connectionReceiver = new ConnectionReceiver();
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		mContext.registerReceiver(connectionReceiver, filter);
-	}
+//	private void registerReceiver() {
+//		Log.i(TAG, "registerReceiver");
+//		connectionReceiver = new ConnectionReceiver();
+//		IntentFilter filter = new IntentFilter();
+//		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+//		mContext.registerReceiver(connectionReceiver, filter);
+//	}
 	
-	private void unregisterReceiver() {
-		Log.i(TAG, "unregisterReceiver");
-		if (connectionReceiver != null) {
-			mContext.unregisterReceiver(connectionReceiver);
-		}
-	}
+//	private void unregisterReceiver() {
+//		Log.i(TAG, "unregisterReceiver");
+//		if (connectionReceiver != null) {
+//			mContext.unregisterReceiver(connectionReceiver);
+//		}
+//	}
 	
 	private void initViews() {
 		parent = this.getView();
@@ -163,128 +163,74 @@ public class MainContentFragment extends BaseFragment{
 			}
 		});
 		
-		initLoadingWindow();
+//		initLoadingWindow();
 	}
 	
-	private void initLoadingWindow() {
-		if (loadingWindow == null) {
-			loadingWindow = new WaitLoadingWindow(mContext);
-		}
-	}
+//	private void initLoadingWindow() {
+//		if (loadingWindow == null) {
+//			loadingWindow = new WaitLoadingWindow(mContext);
+//		}
+//	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
 		Log.i(TAG, "onResume");
-		if (isNetworkConnected(mContext) == false) {
-			if (networkDialog.isShow() == false) {
-				networkDialog.show();
-			}
-		}
+//		if (isNetworkConnected(mContext) == false) {
+//			if (networkDialog.isShow() == false) {
+//				networkDialog.show();
+//			}
+//		}
 	}
 	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		Log.i(TAG, "onDestroy");
-		unregisterReceiver();
+//		unregisterReceiver();
 	}
 	
-	public class ConnectionReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			/**
-			 * Action: ConnectivityManager.CONNECTIVITY_ACTION
-			 */
-			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
-				ConnectivityManager manager = 
-						(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-				NetworkInfo mobNetInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-				NetworkInfo wifiNetInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-				if (mobNetInfo.isConnected() || wifiNetInfo.isConnected()) {
-					// connect network
-					Toast.makeText(context, "connect", Toast.LENGTH_SHORT).show();
-					if (networkDialog.isShow() == true) {
-						networkDialog.dismiss();
-					}
-					mHandler.postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							loadingWindow.show(parent);
-							requestData();
-						}
-					}, 100);
-				} else {
-					// unconnect network
-					Toast.makeText(context, "un connect", Toast.LENGTH_SHORT).show();
-					if (networkDialog.isShow() == false) {
-						networkDialog.show();
-					}
-				}
-			}
-		}
-	}
+//	public class ConnectionReceiver extends BroadcastReceiver {
+//		@Override
+//		public void onReceive(Context context, Intent intent) {
+//			String action = intent.getAction();
+//			/**
+//			 * Action: ConnectivityManager.CONNECTIVITY_ACTION
+//			 */
+//			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+//				ConnectivityManager manager = 
+//						(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//				NetworkInfo mobNetInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+//				NetworkInfo wifiNetInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//				if (mobNetInfo.isConnected() || wifiNetInfo.isConnected()) {
+//					// connect network
+//					Toast.makeText(context, "connect", Toast.LENGTH_SHORT).show();
+//					if (networkDialog.isShow() == true) {
+//						networkDialog.dismiss();
+//					}
+//					mHandler.postDelayed(new Runnable() {
+//						@Override
+//						public void run() {
+//							loadingWindow.show(parent);
+////							requestData();
+//						}
+//					}, 100);
+//				} else {
+//					// unconnect network
+//					Toast.makeText(context, "un connect", Toast.LENGTH_SHORT).show();
+//					if (networkDialog.isShow() == false) {
+//						networkDialog.show();
+//					}
+//				}
+//			}
+//		}
+//	}
 	
-	private void initNetworkDialog() {
-		if (networkDialog == null) {
-			networkDialog = new NetworkDialog(mContext);
-		}
-//		networkDialog.
-	}
-	
-	public class NetworkDialog extends Dialog {
-
-		private boolean isShow = false;
-		private Context context;
-		private Button mPositiveBtn;
-		private Button mNegativeBtn;
-		
-		public NetworkDialog(Context context) {
-			super(context, R.style.DialogTheme);
-			this.context = context;
-		}
-		
-		@Override
-		protected void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			this.setCancelable(false);
-			this.setCancelable(false);
-			this.setContentView(R.layout.network_dialog_content_layout);
-			mPositiveBtn = (Button) findViewById(R.id.network_dialog_positive_button);
-			mNegativeBtn = (Button) findViewById(R.id.network_dialog_negative_button);
-			
-			mPositiveBtn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					context.startActivity(new Intent(Settings.ACTION_SETTINGS));
-					dismiss();
-				}
-			});
-			
-			mNegativeBtn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					ActivityUtils.finishAll();
-				}
-			});
-		}
-		
-		@Override
-		public void show() {
-			super.show();
-			isShow = true;
-		}
-		
-		@Override
-		public void dismiss() {
-			super.dismiss();
-			isShow = false;
-		}
-		
-		public boolean isShow() {
-			return this.isShow;
-		}
-	}
+//	private void initNetworkDialog() {
+//		if (networkDialog == null) {
+//			networkDialog = new NetworkDialog(mContext);
+//		}
+////		networkDialog.
+//	}
 	
 }

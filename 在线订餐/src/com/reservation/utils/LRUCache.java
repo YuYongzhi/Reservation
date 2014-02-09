@@ -101,6 +101,11 @@ public class LRUCache<K extends Comparable, V> implements Cache<K, V>, Serializa
 	}
 
 	@Override
+	public V get(K key) {
+		return get(key, TYPE_WIFI);
+	}
+	
+	@Override
 	public void put(K key, V obj) {
 		Item cur = map.get(key);
 		if (cur != null) {
@@ -143,5 +148,14 @@ public class LRUCache<K extends Comparable, V> implements Cache<K, V>, Serializa
 	public int size() {
 		return map.size();
 	}
+
+	@Override
+	public boolean containKey(K key) {
+		if (map.get(key) != null) {
+			return true;
+		}
+		return false;
+	}
+
 
 }

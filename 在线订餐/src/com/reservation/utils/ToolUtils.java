@@ -1,12 +1,20 @@
 package com.reservation.utils;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
+import android.os.StatFs;
 
 public class ToolUtils {
 	
@@ -109,6 +117,50 @@ public class ToolUtils {
 	    }  
 	    return -1;  
 	}
+
+	/**
+	 * 检查是否挂载SD卡
+	 * @return
+	 * 
+	 * @author 2014-2-9
+	 */
+	public static boolean isSDCardExist() {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
+	/**
+	 * 获取SD卡剩余空间
+	 * @return  （单位 :KB）
+	 * 
+	 * @author 2014-2-9
+	 */
+	public static int getSDCardAvailableSize() {
+		StatFs mStatFs = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
+		long blockSize = mStatFs.getBlockSize();
+		long availableBlocks = mStatFs.getAvailableBlocks();
+		
+		return (int)(availableBlocks * blockSize / 1024);
+	}
+	
+	public static Bitmap getRoundBitmap(Context context, Bitmap bitmap, int radius) {
+		float density = context.getResources().getDisplayMetrics().density;
+		float radiusPx = radius * density;
+		Bitmap bmp = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_4444);
+		Canvas canvas = new Canvas(bmp);
+		Paint paint = new Paint();
+		Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		RectF rectF = new RectF(rect);
+		
+		paint.setAntiAlias(true);
+		canvas.drawRoundRect(rectF, radiusPx, radiusPx, paint);
+		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, rect, rect, paint);
+		
+		return bmp;
+	}
 	
 }

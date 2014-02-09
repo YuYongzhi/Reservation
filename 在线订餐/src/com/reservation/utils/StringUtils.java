@@ -9,6 +9,7 @@ public class StringUtils {
 	}
 	
 	public final static class Manager {
+		public final static String CONNECTIVITY_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
 		public final static String LEFT_FRAGMENT_ACTION = "com.reservation.fragment.MainLeftFragment";
 		public final static String WAIT_LOADING_ACTION = "com.reservation.view.WaitLoadingWindow";
 	}
